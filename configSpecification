@@ -1,0 +1,84 @@
+[INPUT]
+input_type = option(CSV, MSACCESS, default=MSACCESS)
+input_path = string
+delimiter = string(default='\t')
+encoding = string(default='utf-8')
+has_header = boolean(default=False)
+table_name = string(default='FLAT_CMPL')
+username = string(default=admin)
+password = string(default='')
+
+	[[CATEGORY]]
+	create_categories = option(NHTSA, default=None)
+	column_with_category = string(default=None)
+	categories_to_choose = list(default=None)
+	columns_with_text_fields = list(default=None)
+	column_with_primary_key = string(default='Feld1')
+
+[OUTPUT]
+output_path = string(default=None)
+save_plot = boolean(default=True)
+save_silhouette_score_plot = boolean(default=False)
+
+
+[PREPROCESSING]
+
+	[[__many__]]
+	tokenizer = option(PTBTokenizer, WhitespaceTokenizer, default=None)
+	lowercase = boolean(default=False)
+	remove_punctuation = boolean(default=False)
+	unpack_contractions = boolean(default=False)
+	normalize_whitespace = boolean(default=False)
+	remove_urls = boolean(default=False)
+	remove_emails = boolean(default=False)
+	remove_phone_numbers = boolean(default=False)
+	remove_numbers = boolean(default=False)
+	remove_currency_symbols = boolean(default=False)
+	remove_accents = boolean(default=False)
+	fix_bad_unicode = boolean(default=False)
+	correct_english_spelling_errors = boolean(default=False)
+	remove_english_stopwords = boolean(default=False)
+	stemmer = option(PorterStemmer, GermanStemmer, default=None)
+
+		[[[CUSTOMSTOPWORDS]]]
+		__many__ = string(default=None)
+	
+		[[[SYNONYMS]]]
+		__many__ = string(default=None)
+		
+		[[[COLLOCATIONS]]]
+		__many__ = string(default=None)
+	
+		[[[CONTEXT-SYNONYMS]]]
+			[[[[__many__]]]]
+			main_words = list(default=None)
+			context_words = list(default=None)
+			before = integer(default=None)
+			after = integer(default=None)
+			substitution = string(default=None)
+			
+		[[[REGEX-SUBSTITUTIONS]]]
+			[[[[___many___]]]]
+			regex_pattern = string(default=None)
+			substitution = string(default=None)
+		
+[VECTORIZING]
+vectorizer = option(TF-IDF, CountVectorizer, default=CountVectorizer)
+min_df = string(default=1)
+max_df = string(default=1.0)
+binary = boolean(default=False)
+max_features = integer(min=1, default=None)
+use_idf = boolean(default=True)
+smooth_idf = boolean(default=True)
+sublinear_tf = boolean(default=False)
+
+[CLUSTERING]
+algorithm = option(kmeans, default=kmeans)
+n_clusters = integer(min=1, default=8)
+max_iter = integer(min=1, default=300)
+n_init = integer(min=1, default=10)
+init = option(k-means++, random, default=k-means++)
+
+
+
+		
