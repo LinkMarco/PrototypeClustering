@@ -1,7 +1,5 @@
 # Clustering Prototype
 
-This is my Clustering prototype which I developed during my Bachelor Thesis.
-
 Dependencies
 -	Python 3.5
 -	ConfigObj (http://configobj.readthedocs.io/en/latest/)
